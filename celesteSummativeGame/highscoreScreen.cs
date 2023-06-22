@@ -32,17 +32,10 @@ namespace celesteSummativeGame
 
             foreach (HighScore hs in scores)
             {
-                // next step is to sort by time
+                // next step is to sort by time, would change to only show top 5
                 outputLabel.Text = outputLabel.Text + "\n" + hs.name;
                 scoreLabel.Text = scoreLabel.Text + "\n" + hs.score;
             }
-        }
-
-
-        public void highscoreReader()
-        {
-      // moved to form1
-
         }
 
         private void exitButton_Click(object sender, EventArgs e)

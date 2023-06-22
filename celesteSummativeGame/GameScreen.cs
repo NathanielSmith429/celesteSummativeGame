@@ -18,7 +18,6 @@ namespace celesteSummativeGame
 
         SolidBrush greenBrush = new SolidBrush(Color.LightGreen); //creating brushes to paint with
         SolidBrush blueBrush = new SolidBrush(Color.LightBlue);
-        SolidBrush redBrush = new SolidBrush(Color.Red);
         SolidBrush greyBrush = new SolidBrush(Color.DarkGray);
         SolidBrush darkBlueBrush = new SolidBrush(Color.DarkBlue);
         SolidBrush pinkBrush = new SolidBrush(Color.Pink);
@@ -36,13 +35,13 @@ namespace celesteSummativeGame
 
         public static int deathCounter;
 
-        Wall bottomWall,leftWall, rightWall, topWall, plat1, plat2, plat3, plat4, plat5, plat6;
+        Wall bottomWall,leftWall, rightWall, topWall, plat1, plat2, plat3, plat4, plat5, plat6; // creating walls
 
         spike spike1, spike2;
 
         Rectangle winZone = new Rectangle(1200, 0, 300, 50);
 
-       public static Stopwatch myWatch = new Stopwatch();
+       public static Stopwatch myWatch = new Stopwatch(); //creating a stop watch
 
         public GameScreen()
         {  
