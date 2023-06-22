@@ -22,10 +22,22 @@ namespace celesteSummativeGame
         {
           InitializeComponent();
 
-         // highscoreReader();
+            // highscoreReader();
 
-           //create a code to display the times in a label
+            //create a code to display the times in a label
+
+            // scores.Sort(score);
+            outputLabel.Text = "";
+            scoreLabel.Text = "";
+
+            foreach (HighScore hs in scores)
+            {
+                // next step is to sort by time
+                outputLabel.Text = outputLabel.Text + "\n" + hs.name;
+                scoreLabel.Text = scoreLabel.Text + "\n" + hs.score;
+            }
         }
+
 
         public void highscoreReader()
         {

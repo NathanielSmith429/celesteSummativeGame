@@ -88,7 +88,7 @@
             // nameBox
             // 
             this.nameBox.Font = new System.Drawing.Font("Century Gothic", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameBox.Location = new System.Drawing.Point(775, 808);
+            this.nameBox.Location = new System.Drawing.Point(754, 808);
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(142, 60);
             this.nameBox.TabIndex = 10;

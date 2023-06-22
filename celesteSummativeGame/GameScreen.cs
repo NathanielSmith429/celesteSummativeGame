@@ -286,13 +286,15 @@ namespace celesteSummativeGame
             #endregion
 
             // Creating the spikes
-
+            #region
             spike1 = new spike(400,1300, 250, 50);
 
             spike2 = new spike(800, 1300, 550, 50);
 
             spikes.Add(spike1);
             spikes.Add(spike2);
+
+            #endregion
 
             myWatch.Start(); //starting a stop watch
 
