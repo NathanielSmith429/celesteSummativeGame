@@ -7,32 +7,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace celesteSummativeGame
 {
     public partial class GameScreen : UserControl
     {
-        List<Wall> walls = new List<Wall>();    
+        List<Wall> walls = new List<Wall>();
+        List<spike> spikes = new List<spike>();
 
-        SolidBrush greenBrush = new SolidBrush(Color.Green); //creating brushes to paint with
-        SolidBrush blackBrush = new SolidBrush(Color.Black);
-        SolidBrush blueBrush = new SolidBrush(Color.Blue);
+        SolidBrush greenBrush = new SolidBrush(Color.LightGreen); //creating brushes to paint with
+        SolidBrush blueBrush = new SolidBrush(Color.LightBlue);
         SolidBrush redBrush = new SolidBrush(Color.Red);
+        SolidBrush greyBrush = new SolidBrush(Color.DarkGray);
+        SolidBrush darkBlueBrush = new SolidBrush(Color.DarkBlue);
+        SolidBrush pinkBrush = new SolidBrush(Color.Pink);
 
 
         public static Boolean leftArrowDown, rightArrowDown, upArrowDown, downArrowDown, xKeyDown, cKeyDown; // getting key presses for movements
 
         Player madeline; //Creating a charecter 
 
-      public static bool isInAir; // bool to see if the charceter is in the air
+        public static bool isInAir; // bool to see if the charceter is in the air
 
-        int gravity; // gravity to force the player down to the ground
+        double gravity; // gravity to force the player down to the ground
 
-      public static int boostCounter = 0;
+        public static int boostCounter = 0;
 
-        Wall floor, plat1,leftWall, rightWall, topWall;
-     
+        public static int deathCounter;
 
+        Wall bottomWall,leftWall, rightWall, topWall, plat1, plat2, plat3, plat4, plat5, plat6;
+
+        spike spike1, spike2;
+
+        Rectangle winZone = new Rectangle(1200, 0, 300, 50);
+
+       public static Stopwatch myWatch = new Stopwatch();
 
         public GameScreen()
         {  
@@ -77,13 +87,13 @@ namespace celesteSummativeGame
                 }
             }
 
-            madeline.y += madeline.ySpeed; //players y postion is added to by tshe y speed
+            madeline.y += (int)madeline.ySpeed; //players y postion is added to by tshe y speed
 
             madelineRect = new Rectangle(madeline.x, madeline.y, madeline.width, madeline.height);
 
             //Old code
             #region
-       
+
             // if (!madelineRect.IntersectsWith(floor)) // fix the floor
             // {
             //     isInAir = true;
@@ -103,12 +113,14 @@ namespace celesteSummativeGame
 
             #endregion //Old Code
 
+            // Creating code to have the player interact with the level walls
+
             foreach (Wall w in walls)
             {
                 if (!w.Collision(madeline))
                 {
                     isInAir = true;
-                    gravity = 1; // setting the force of gravity
+                    gravity = 0.2; // setting the force of gravity
                     madeline.ySpeed += gravity; // ySpeed is be taking down by the force of gravity 
 
                    // break;
@@ -124,27 +136,59 @@ namespace celesteSummativeGame
                    // boostCounter = 0;
                    // madeline.y = w.y - madeline.height;
                     madeline.ySpeed = 0;
-                    madeline.xSpeed = 8;
+                    madeline.xSpeed = 12;
                     break;
                 }
             }
 
-            Refresh();        
+            //Reseting player to start when hitting a spike
+            foreach (spike s in spikes)
+            {
+                if (s.Collision(madeline))
+                {
+                  //  deathCounter++;
+                    madeline.x = 25;
+                    madeline.y = 1200;
+                    break;
+                }
+            }
+            madelineRect = new Rectangle(madeline.x, madeline.y, madeline.width, madeline.height); //updating rectangle
+
+
+            // Creating the end region
+            if(winZone.IntersectsWith(madelineRect))
+            {
+                myWatch.Stop();
+                GameEngine.Stop();
+                Form1.ChangeScreen(this, new EndScreen());
+            }
+                Refresh();        
         }
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.FillRectangle(greenBrush, winZone); //drawing the win zone
 
-            e.Graphics.FillRectangle(greenBrush, madeline.x, madeline.y, madeline.width, madeline.height);
-           
-            if(boostCounter > 0)
+             e.Graphics.FillRectangle(pinkBrush, madeline.x, madeline.y, madeline.width, madeline.height);
+            //  e.Graphics.DrawImageUnscaled(Properties.Resources.spritePicture2, madeline.x, madeline.y, madeline.width, madeline.height);
+
+            if (boostCounter > 0)
             {
                 e.Graphics.FillRectangle(blueBrush, madeline.x, madeline.y, madeline.width, madeline.height);
             }
 
             foreach (Wall w in walls)
             {
-             e.Graphics.FillRectangle(redBrush, w.x, w.y, w.width, w.height);   
+                e.Graphics.FillRectangle(darkBlueBrush , w.x, w.y, w.width, w.height);
+              //  e.Graphics.DrawImage(Properties.Resources.iceCave,w.x, w.y, w.height,w.width);
+
+            }
+            
+            foreach (spike s in spikes)
+            {
+                e.Graphics.FillRectangle(greyBrush, s.x, s.y, s.width, s.height);
+                 //e.Graphics.DrawImage(Properties.Resources.spikePng,s.x, s.y, s.height,s.width);
+
             }
         }
 
@@ -208,17 +252,51 @@ namespace celesteSummativeGame
         }
         public void InitalizeGame()
         {
-            madeline = new Player(25,1200, 12, 1);
+            myWatch.Reset();
+
+            madeline = new Player(25,1200, 15, 1);
             GameEngine.Enabled = true;
-            plat1 = new Wall(500, 1200, 300, 300);
-            floor = new Wall(0, 1350, 400, 50);
-            leftWall= new Wall(0, 0, 150, 1050);// temp floor
-            rightWall = new Wall(1300, 0, 100, 1400);
-            walls.Add(plat1);
-            walls.Add(floor);
+
+            // Creating the platforms 
+            #region
+            bottomWall = new Wall(0, 1350, 1400, 50);
+            leftWall= new Wall(0, 0, 100, 900);// temp floor
+            rightWall = new Wall(1350, 0, 100, 1400);
+            topWall = new Wall(0, 0, 1200, 50);
+
+            plat1 = new Wall(0, 1250, 300, 100);
+            plat2 = new Wall(300, 1150, 100, 200);
+            plat3 = new Wall(650, 1100, 150, 250);
+            plat4 = new Wall(1210, 900, 190, 40);
+            plat5 = new Wall(550, 650, 190, 40);
+            plat6 = new Wall(1150, 350, 500, 80);
+
+            walls.Add(bottomWall);
             walls.Add(leftWall);
-            walls.Add(floor);
             walls.Add(rightWall);
+            walls.Add(topWall);
+
+            walls.Add(plat1);
+            walls.Add(plat2);
+            walls.Add(plat3);
+            walls.Add(plat4);
+            walls.Add(plat5);
+            walls.Add(plat6);
+
+            #endregion
+
+            // Creating the spikes
+
+            spike1 = new spike(400,1300, 250, 50);
+
+            spike2 = new spike(800, 1300, 550, 50);
+
+            spikes.Add(spike1);
+            spikes.Add(spike2);
+
+            myWatch.Start(); //starting a stop watch
+
+
 
         }
 

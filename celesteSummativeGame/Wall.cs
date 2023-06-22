@@ -13,7 +13,7 @@ namespace celesteSummativeGame
         public int x, y, width, height;
 
 
-        public Wall(int _x, int _y, int _width, int _height)
+        public Wall(int _x, int _y, int _width, int _height) //creating blueprint for the walls
         {
             x = _x;
             y = _y;
@@ -27,28 +27,27 @@ namespace celesteSummativeGame
             Rectangle wallRec = new Rectangle(x, y, width, height);
             Rectangle playerRec = new Rectangle(p.x, p.y, p.width, p.height);
 
-            if (wallRec.IntersectsWith(playerRec))
+            if (wallRec.IntersectsWith(playerRec)) //checking if player has intersected with a rectangle
             {
                 int newX = x + width;
                 int newY = y + height;
 
-                Rectangle topRec = new Rectangle(x, y, width, 20);
+                Rectangle topRec = new Rectangle(x, y, width, 15);
                 Rectangle leftRec = new Rectangle(x, y, 1, height);
                 Rectangle rightRec = new Rectangle(newX, y, 1, height);
                 Rectangle bottomRec = new Rectangle(x, newY, width, 1);
+
+                //checking which side of the rectangle was hit, then adjusting the charecter properly
 
                 if (topRec.IntersectsWith(playerRec))
                 {
                     p.y = y - p.height;
                     GameScreen.isInAir = false;
-
                 }
                 else if (leftRec.IntersectsWith(playerRec))
                 {
                     p.x = x - p.width;
                     GameScreen.isInAir = true;
-                    //   GameScreen.boostCounter = 1;
-
                 }
                 else if (rightRec.IntersectsWith(playerRec))
                 {
@@ -58,9 +57,8 @@ namespace celesteSummativeGame
                 else if (bottomRec.IntersectsWith(playerRec))
                 {
                     p.y = newY;
-                  GameScreen.isInAir = true;
+                    GameScreen.isInAir = true;
                 }
-
                return true;
             }
             return false;

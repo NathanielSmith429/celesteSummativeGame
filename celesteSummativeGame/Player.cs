@@ -10,15 +10,15 @@ namespace celesteSummativeGame
     internal class Player
     {
         public  int x, y;
-        public  int xSpeed = 8;
-        public  int ySpeed = 8;
-        public int width = 75;
-        public int height = 75;
+        public  double xSpeed = 8;
+        public  double ySpeed = 8;
+        public int width = 60;
+        public int height = 60;
         bool isInAir;
 
 
        
-        public Player(int _x, int _y, int _xSpeed, int _ySpeed)
+        public Player(int _x, int _y, double _xSpeed, double _ySpeed)
         {
             x = _x;
             y = _y;
@@ -26,7 +26,7 @@ namespace celesteSummativeGame
             ySpeed = _ySpeed; 
         }
 
-        public void Move(string direction)
+        public void Move(string direction) //checking which direction the player is moving, then moving the player properly
         {
             if (direction == "up")
             {
@@ -38,15 +38,15 @@ namespace celesteSummativeGame
             }
             if (direction == "left")
             { 
-                x -= xSpeed;
+                x -= (int)xSpeed;
             }
             if (direction == "right")
             {
-                x += xSpeed;
+                x += (int)xSpeed;
             }
             if (direction == "jump")
             {
-                ySpeed = -25; // giving the charter a direction 
+                ySpeed = -30; // giving the charter a direction 
               // y += ySpeed;
             }
 
@@ -55,36 +55,36 @@ namespace celesteSummativeGame
                 if (GameScreen.upArrowDown)
                 {
                     ySpeed = 0;
-                    ySpeed -= 20;
+                    ySpeed -= 35;
                 }
                 else if (GameScreen.upArrowDown && GameScreen.leftArrowDown)
                 {
                     ySpeed = 0;
-                    ySpeed -= 20;
-                    xSpeed -= 40;
+                    ySpeed -= 35;
+                    xSpeed -= 35;
                 }
                 else if (GameScreen.upArrowDown && GameScreen.rightArrowDown)
                 {
                     ySpeed = 0;
-                    ySpeed -= 20;
-                    xSpeed += 40;
+                    ySpeed -= 35;
+                    xSpeed += 35;
                 }
                 else if (GameScreen.downArrowDown)
                 {
                     ySpeed = 0;
-                    ySpeed += 20;
+                    ySpeed += 35;
                 }
                 else if (GameScreen.downArrowDown && GameScreen.leftArrowDown)
                 {
                     ySpeed = 0;
-                    ySpeed += 20;
-                    xSpeed -= 40;
+                    ySpeed += 35;
+                    xSpeed -= 35;
                 }
                 else if (GameScreen.downArrowDown && GameScreen.rightArrowDown)
                 {
                     ySpeed = 0;
-                    ySpeed += 20;
-                    xSpeed += 40;
+                    ySpeed += 35;
+                    xSpeed += 35;
                 }
                 //else if (GameScreen.leftArrowDown)
                 //{

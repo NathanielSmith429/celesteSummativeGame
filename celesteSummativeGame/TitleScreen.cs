@@ -19,12 +19,22 @@ namespace celesteSummativeGame
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            Form1.ChangeScreen(this, new highscoreScreen());
         }
 
         private void startButton_Click(object sender, EventArgs e)
         {
             Form1.ChangeScreen(this, new GameScreen());
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void highscoreButton_Click(object sender, EventArgs e)
+        {
+            Form1.ChangeScreen(this, new highscoreScreen());
         }
     }
 }

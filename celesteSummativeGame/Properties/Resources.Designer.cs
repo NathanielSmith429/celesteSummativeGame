@@ -63,9 +63,9 @@ namespace celesteSummativeGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap backgroundImage {
+        internal static System.Drawing.Bitmap CelesteLogo {
             get {
-                object obj = ResourceManager.GetObject("backgroundImage", resourceCulture);
+                object obj = ResourceManager.GetObject("CelesteLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,69 @@ namespace celesteSummativeGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CelesteLogo {
+        internal static System.Drawing.Bitmap endBackground {
             get {
-                object obj = ResourceManager.GetObject("CelesteLogo", resourceCulture);
+                object obj = ResourceManager.GetObject("endBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gameBackground2 {
+            get {
+                object obj = ResourceManager.GetObject("gameBackground2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iceCave {
+            get {
+                object obj = ResourceManager.GetObject("iceCave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spikePng {
+            get {
+                object obj = ResourceManager.GetObject("spikePng", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spritePicture {
+            get {
+                object obj = ResourceManager.GetObject("spritePicture", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spritePicture2 {
+            get {
+                object obj = ResourceManager.GetObject("spritePicture2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap titleScreen {
+            get {
+                object obj = ResourceManager.GetObject("titleScreen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
